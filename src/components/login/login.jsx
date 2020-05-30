@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { login } from "../API";
 import { storage } from '../../index'
-import saveUser from '../../store'
+import saveUser from '../../store/saveUser'
 
 export default class LogIn extends Component {
     state = {
@@ -36,7 +36,7 @@ export default class LogIn extends Component {
             alert(this.state.error);
         } else if (this.state.response.success === true) {
             storage.dispatch(saveUser(this.state.user));
-            window.location.pathname = "apiv1/anuncios";
+            setTimeout(function () { window.location.pathname = "apiv1/anuncios"; }, 2000)
         } else alert("Unknow error. Please try again later.");
     };
 

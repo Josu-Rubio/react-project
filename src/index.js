@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import './index.css';
 import { createStore } from 'redux';
-import saveUser from './store';
+import reducer from './reducers/reducers';
 
 const initialState = {
-  user: 'whatever',
-  reduxAds: [],
+  user: '',
 };
 
-let storage = createStore(
-  (state) => state,
+const storage = createStore(
+  reducer,
   initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
