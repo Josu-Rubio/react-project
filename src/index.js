@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/App';
 import './index.css';
-import Routing from './routing';
+import { createStore } from 'redux';
+import saveUser from './store';
 
+const initialState = {
+  user: 'whatever',
+  reduxAds: [],
+};
 
-function App() {
-    return (
-        <div>
-            <Routing />
-        </div>
-    );
-}
-
-export default App;
-
+let storage = createStore(
+  (state) => state,
+  initialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
+export { storage };

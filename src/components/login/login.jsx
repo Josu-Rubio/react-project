@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { login } from "../API";
+import { storage } from '../../index'
+import saveUser from '../../store'
 
 export default class LogIn extends Component {
     state = {
@@ -33,6 +35,7 @@ export default class LogIn extends Component {
             this.setState({ error: this.state.response.error });
             alert(this.state.error);
         } else if (this.state.response.success === true) {
+            storage.dispatch(saveUser(this.state.user));
             window.location.pathname = "apiv1/anuncios";
         } else alert("Unknow error. Please try again later.");
     };
