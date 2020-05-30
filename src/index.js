@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import './index.css';
 import { createStore } from 'redux';
-import reducer from './reducers/reducers';
+import reducer from './store/reducers';
 
 const initialState = {
   user: '',
