@@ -1,3 +1,4 @@
+export const GET_USER = 'GET_USER';
 export const SAVE_USER = 'SAVE_USER';
 export const LOCALSTORAGE_USER = 'LOCALSTORAGE_USER';
 export const STORAGE_ADS = 'STORAGE_ADS';

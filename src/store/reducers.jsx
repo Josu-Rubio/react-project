@@ -37,7 +37,7 @@ export const adsReducer = (state, action) => {
   }
 };
 export const createReducer = (state, action) => {
-  const adsList = {
+  const cleanAd = {
     adBuilder: {
       name: null,
       sell: 'sell',
@@ -50,7 +50,7 @@ export const createReducer = (state, action) => {
   };
   let updatedState = state;
   if (state === undefined) {
-    return adsList;
+    return cleanAd;
   }
   switch (action.type) {
     case TYPES.CREATE_ADS:
