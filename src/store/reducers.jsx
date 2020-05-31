@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import * as TYPES from './types';
 
+const userExample = { user: 'User Example' };
 export const userReducer = (state, action) => {
-  const userExample = { user: 'User Example' };
   let updatedState = state;
   if (state === undefined) {
     return userExample;
@@ -22,8 +22,8 @@ export const userReducer = (state, action) => {
   }
 };
 
+const previousList = {};
 export const adsReducer = (state, action) => {
-  const previousList = {};
   let updatedState = state;
   if (state === undefined) {
     return previousList;
@@ -36,18 +36,19 @@ export const adsReducer = (state, action) => {
       return state;
   }
 };
+
+const cleanAd = {
+  adBuilder: {
+    name: null,
+    sell: 'sell',
+    tag: 'lifestyle ',
+    price: null,
+    description: null,
+    url: null,
+  },
+  finalAd: {},
+};
 export const createReducer = (state, action) => {
-  const cleanAd = {
-    adBuilder: {
-      name: null,
-      sell: 'sell',
-      tag: 'lifestyle ',
-      price: null,
-      description: null,
-      url: null,
-    },
-    finalAd: {},
-  };
   let updatedState = state;
   if (state === undefined) {
     return cleanAd;
