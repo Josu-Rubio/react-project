@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { ads } from '../../API';
 import { storage } from '../../index';
-import { saveAds } from '../../store/actions';
+import { renderAds } from '../../store/actions';
 
 const BUY = [
   { id: '', name: 'None' },
@@ -24,20 +24,20 @@ class MakeAnAdd extends Component {
       <div className='ad'>
         <div>
           <p className='ad-name'>
-            {storage.getState().ads.results[this.props.data].name}
+            {storage.getState().renderAds.results[this.props.data].name}
           </p>
           <p className='ad-price'>
-            {storage.getState().ads.results[this.props.data].price}€
+            {storage.getState().renderAds.results[this.props.data].price}€
           </p>
         </div>
         <Link
           to={`/apiv1/anuncios/${
-            storage.getState().ads.results[this.props.data]._id
+            storage.getState().renderAds.results[this.props.data]._id
           }`}
         >
           <img
-            src={storage.getState().ads.results[this.props.data].photo}
-            alt={storage.getState().ads.results[this.props.data].name}
+            src={storage.getState().renderAds.results[this.props.data].photo}
+            alt={storage.getState().renderAds.results[this.props.data].name}
           />
         </Link>
       </div>
@@ -49,7 +49,7 @@ let ListAds = (props) => {
   let adList = [];
   const callingApi = props.callingApi;
   if (callingApi) {
-    for (let i = 0; i < storage.getState().ads.count; i++) {
+    for (let i = 0; i < storage.getState().renderAds.count; i++) {
       adList.push(<MakeAnAdd key={i} data={i} />);
     }
     return <div className='ad-list'>{adList}</div>;
@@ -93,7 +93,6 @@ const queryInfo = (search, buy, tag, minPrice, maxPrice) => {
       }
     }
   }
-  console.log(query);
   return query;
 };
 
@@ -133,10 +132,10 @@ export default class Home extends Component {
     });
   };
   checkStatus = (response) => {
-    if (storage.getState().ads.success === false) {
+    if (storage.getState().renderAds.success === false) {
       alert(`You have lost connection. Please log in again`);
       window.location.pathname = '/apiv1/login';
-    } else if (storage.getState().ads.success === true) {
+    } else if (storage.getState().renderAds.success === true) {
       this.setState({ renderInfoTags: true });
     } else {
       alert(`Ooops! Theres's an error. Try logging in again`);
@@ -145,7 +144,7 @@ export default class Home extends Component {
   };
   bringAds = async () => {
     storage.dispatch(
-      saveAds(
+      renderAds(
         await ads(
           queryInfo(
             this.state.search,
@@ -204,6 +203,11 @@ export default class Home extends Component {
             </select>
             <br />
             <button value='Submit'>Filter</button>
+            <div className='create-Ad'>
+              <Link to='/apiv1/anuncios/create'>
+                <button>Create an Ad.</button>
+              </Link>
+            </div>
             <div className='log-out'>
               <Link to='/apiv1/login'>
                 <button>Log Out</button>

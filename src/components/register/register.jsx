@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { storage } from '../../index';
+import { saveUser } from '../../store/actions';
 
 import { register } from '../../API';
 
@@ -31,8 +33,11 @@ export default class Register extends Component {
       this.setState({ error: this.state.response.error });
       alert(this.state.error);
     } else if (this.state.response.success === true) {
+      storage.dispatch(saveUser(this.state.user));
       alert(`Congratulations! The user "${this.state.user}" has been created`);
-      window.location.pathname = 'apiv1/login';
+      setTimeout(function () {
+        window.location.pathname = 'apiv1/login';
+      }, 2000);
     } else alert('Unknow error. Please try again later.');
   };
 

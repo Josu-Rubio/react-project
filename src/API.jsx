@@ -1,23 +1,23 @@
-const axios = require("axios").default;
+const axios = require('axios').default;
 
 const register = (user, password) => {
   return axios({
-    method: "post",
-    url: "http://34.89.93.186:8080/apiv1/register",
+    method: 'post',
+    url: 'http://34.89.93.186:8080/apiv1/register',
     headers: {
-      accept: "application/json"
+      accept: 'application/json',
     },
     data: {
       username: `${user}`,
-      password: `${password}`
+      password: `${password}`,
     },
-    withCredentials: true
+    withCredentials: true,
   })
-    .then(response => {
+    .then((response) => {
       console.log(response.data);
       return response.data;
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       return error.response.data;
     });
@@ -25,51 +25,73 @@ const register = (user, password) => {
 
 const login = (user, password) => {
   return axios({
-    method: "post",
-    url: "http://34.89.93.186:8080/apiv1/login",
+    method: 'post',
+    url: 'http://34.89.93.186:8080/apiv1/login',
     headers: {
-      accept: "application/json"
+      accept: 'application/json',
     },
     data: {
       username: `${user}`,
-      password: `${password}`
+      password: `${password}`,
     },
-    withCredentials: true
+    withCredentials: true,
   })
-    .then(response => {
+    .then((response) => {
       console.log(response.data);
       return response.data;
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       return error.response.data;
     });
 };
-const ads = query => {
+const ads = (query) => {
   return axios({
-    method: "get",
+    method: 'get',
     url: `http://34.89.93.186:8080/apiv1/anuncios/${query}`,
-    withCredentials: true
+    withCredentials: true,
   })
-    .then(response => {
+    .then((response) => {
       return response.data;
     })
-    .catch(error => {
-      return alert(`${error.response.data}`)
-    })
+    .catch((error) => {
+      return alert(`${error.response.data}`);
+    });
 };
-const detail = id => {
+const detail = (id) => {
   return axios({
-    method: "get",
+    method: 'get',
     url: `http://34.89.93.186:8080/apiv1/anuncios/${id}`,
-    withCredentials: true
+    withCredentials: true,
   })
-    .then(response => {
+    .then((response) => {
       return response.data;
     })
-    .catch(error => {
+    .catch((error) => {
       return error.response.data;
     });
 };
 
-export { register, login, ads, detail };
+const create = (name, price, description, tag, type, photo) => {
+  return axios({
+    method: 'POST',
+    url: `http://34.89.93.186:8080/apiv1/anuncios/`,
+    data: {
+      name: `${name}`,
+      price: `${price}`,
+      description: `${description}`,
+      tags: `${tag}`,
+      type: `${type}`,
+      photo: `${photo}`,
+    },
+    withCredentials: true,
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response.data;
+    });
+};
+
+export { register, login, ads, detail, create };

@@ -1,9 +1,18 @@
+export const saveUser = (user) => {
+  return {
+    type: 'SAVE_USER',
+    payload: {
+      user,
+    },
+  };
+};
+
 export const localStorageUSer = {
   type: 'LOCALSTORAGE_USER',
   payload: {},
 };
 
-export const saveAds = (ads) => {
+export const renderAds = (ads) => {
   return {
     type: 'STORAGE_ADS',
     payload: {
@@ -12,11 +21,65 @@ export const saveAds = (ads) => {
   };
 };
 
-export const saveUser = (user) => {
+export const createAds = (ads) => {
   return {
-    type: 'SAVE_USER',
+    type: 'CREATE_ADS',
     payload: {
-      user,
+      ads,
+    },
+  };
+};
+
+export const createAdsName = (ads) => {
+  return {
+    type: 'CREATE_ADS_NAME',
+    payload: {
+      ads,
+    },
+  };
+};
+
+export const createAdsSell = (ads) => {
+  return {
+    type: 'CREATE_ADS_SELL',
+    payload: {
+      ads,
+    },
+  };
+};
+
+export const createAdsTag = (ads) => {
+  return {
+    type: 'CREATE_ADS_TAG',
+    payload: {
+      ads,
+    },
+  };
+};
+
+export const createAdsPrice = (ads) => {
+  return {
+    type: 'CREATE_ADS_PRICE',
+    payload: {
+      ads,
+    },
+  };
+};
+
+export const createAdsDescription = (ads) => {
+  return {
+    type: 'CREATE_ADS_DESCRIPTION',
+    payload: {
+      ads,
+    },
+  };
+};
+
+export const createAdsUrl = (ads) => {
+  return {
+    type: 'CREATE_ADS_URL',
+    payload: {
+      ads,
     },
   };
 };
