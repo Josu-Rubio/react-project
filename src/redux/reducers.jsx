@@ -3,6 +3,7 @@ import * as TYPES from './types';
 
 const userExample = { user: 'User Example' };
 export const userReducer = (state, action) => {
+  console.log('action:', action.type);
   let updatedState = state;
   if (state === undefined) {
     return userExample;
@@ -14,8 +15,9 @@ export const userReducer = (state, action) => {
       }
       return userExample;
     case TYPES.SAVE_USER:
+      console.log('user:', action.payload.user);
       updatedState = action.payload.user;
-      localStorage.setItem('user', updatedState);
+      localStorage.setItem('user', JSON.stringify(updatedState));
       return updatedState;
     default:
       return state;

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { ads } from '../../API';
-import { storage } from '../../index';
-import { renderAds } from '../../store/actions';
+import createStore from '../../redux/store';
+import { renderAds } from '../../redux/actions';
 
 const BUY = [
   { id: '', name: 'None' },
@@ -24,20 +24,22 @@ class MakeAnAdd extends Component {
       <div className='ad'>
         <div>
           <p className='ad-name'>
-            {storage.getState().renderAds.results[this.props.data].name}
+            {createStore.getState().renderAds.results[this.props.data].name}
           </p>
           <p className='ad-price'>
-            {storage.getState().renderAds.results[this.props.data].price}€
+            {createStore.getState().renderAds.results[this.props.data].price}€
           </p>
         </div>
         <Link
           to={`/apiv1/anuncios/${
-            storage.getState().renderAds.results[this.props.data]._id
+            createStore.getState().renderAds.results[this.props.data]._id
           }`}
         >
           <img
-            src={storage.getState().renderAds.results[this.props.data].photo}
-            alt={storage.getState().renderAds.results[this.props.data].name}
+            src={
+              createStore.getState().renderAds.results[this.props.data].photo
+            }
+            alt={createStore.getState().renderAds.results[this.props.data].name}
           />
         </Link>
       </div>
@@ -48,10 +50,13 @@ class MakeAnAdd extends Component {
 let ListAds = (props) => {
   let adList = [];
   const callingApi = props.callingApi;
+
   if (callingApi) {
-    for (let i = 0; i < storage.getState().renderAds.count; i++) {
+    for (let i = 0; i < createStore.getState().renderAds.count; i++) {
       adList.push(<MakeAnAdd key={i} data={i} />);
     }
+
+    console.log(adList.length);
     return <div className='ad-list'>{adList}</div>;
   }
   return null;
@@ -132,10 +137,10 @@ export default class Home extends Component {
     });
   };
   checkStatus = (response) => {
-    if (storage.getState().renderAds.success === false) {
+    if (createStore.getState().renderAds.success === false) {
       alert(`You have lost connection. Please log in again`);
       window.location.pathname = '/apiv1/login';
-    } else if (storage.getState().renderAds.success === true) {
+    } else if (createStore.getState().renderAds.success === true) {
       this.setState({ renderInfoTags: true });
     } else {
       alert(`Ooops! Theres's an error. Try logging in again`);
@@ -143,7 +148,7 @@ export default class Home extends Component {
     }
   };
   bringAds = async () => {
-    storage.dispatch(
+    createStore.dispatch(
       renderAds(
         await ads(
           queryInfo(

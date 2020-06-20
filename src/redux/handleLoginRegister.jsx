@@ -5,7 +5,7 @@ import { saveUser } from './actions';
 export default function Handler(props) {
   const [user, setUser] = useState('user');
   const [password, setPassword] = useState('password');
-  const [response, setResponse] = useState('');
+  /*const [response, setResponse] = useState('');*/
 
   function typeUser(event) {
     setUser(event.target.value);
@@ -15,7 +15,7 @@ export default function Handler(props) {
   }
 
   async function submitAndAlert(event) {
-    event.preventDefault();
+    /*event.preventDefault();
     let response = await props.call(user, password);
 
     if (response.success === false) {
@@ -23,7 +23,7 @@ export default function Handler(props) {
       alert(response.error);
     } else if (response.success === true) {
       storage.dispatch(saveUser(user));
-    } else setResponse(`Unknow error. Please try again later.`);
+    } else setResponse(`Unknow error. Please try again later.`);*/
   }
 
   return (

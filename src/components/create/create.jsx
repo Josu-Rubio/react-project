@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { storage } from '../../index';
+import createStore from '../../redux/store';
 import { create } from '../../API';
 import {
   createAds,
@@ -10,7 +10,7 @@ import {
   createAdsPrice,
   createAdsDescription,
   createAdsUrl,
-} from '../../store/actions';
+} from '../../redux/actions';
 
 export default class Create extends Component {
   constructor(props) {
@@ -21,45 +21,45 @@ export default class Create extends Component {
   }
 
   typeName = (event) => {
-    storage.dispatch(createAdsName(event.target.value));
+    createStore.dispatch(createAdsName(event.target.value));
   };
   selectSell = (event) => {
-    storage.dispatch(createAdsSell(event.target.value));
+    createStore.dispatch(createAdsSell(event.target.value));
   };
   fillTag = (event) => {
-    storage.dispatch(createAdsTag(event.target.value));
+    createStore.dispatch(createAdsTag(event.target.value));
   };
   typePrice = (event) => {
-    storage.dispatch(createAdsPrice(event.target.value));
+    createStore.dispatch(createAdsPrice(event.target.value));
   };
   typeDescription = (event) => {
-    storage.dispatch(createAdsDescription(event.target.value));
+    createStore.dispatch(createAdsDescription(event.target.value));
   };
   pasteUrl = (event) => {
-    storage.dispatch(createAdsUrl(event.target.value));
+    createStore.dispatch(createAdsUrl(event.target.value));
   };
   submitAndAlert = async (event) => {
     event.preventDefault();
-    storage.dispatch(
+    createStore.dispatch(
       createAds(
         await create(
-          storage.getState().createAds.adBuilder.name,
-          storage.getState().createAds.adBuilder.sell,
-          [storage.getState().createAds.adBuilder.tag],
-          storage.getState().createAds.adBuilder.price,
-          storage.getState().createAds.adBuilder.description,
-          storage.getState().createAds.adBuilder.url
+          createStore.getState().createAds.adBuilder.name,
+          createStore.getState().createAds.adBuilder.sell,
+          [createStore.getState().createAds.adBuilder.tag],
+          createStore.getState().createAds.adBuilder.price,
+          createStore.getState().createAds.adBuilder.description,
+          createStore.getState().createAds.adBuilder.url
         )
       )
     );
-    console.log(storage.getState().createAds.finalAd);
-    if (storage.getState().createAds.finalAd.success === false) {
-      this.setState({ error: storage.getState().createAds.finalAd.error });
+    console.log(createStore.getState().createAds.finalAd);
+    if (createStore.getState().createAds.finalAd.success === false) {
+      this.setState({ error: createStore.getState().createAds.finalAd.error });
       alert(this.state.error);
-    } else if (storage.getState().createAds.finalAd.sucess === true) {
+    } else if (createStore.getState().createAds.finalAd.sucess === true) {
       alert(
         `Congratulations! The Ad. "${
-          storage.getState().createAds.adBuilder.name
+          createStore.getState().createAds.adBuilder.name
         }" has been created`
       );
       window.location.pathname = 'apiv1/anuncios';
@@ -67,12 +67,12 @@ export default class Create extends Component {
   };
 
   render() {
-    const name = storage.getState().createAds.adBuilder.name;
-    const sell = storage.getState().createAds.adBuilder.sell;
-    const tag = storage.getState().createAds.adBuilder.tag;
-    const price = storage.getState().createAds.adBuilder.price;
-    const description = storage.getState().createAds.adBuilder.description;
-    const url = storage.getState().createAds.adBuilder.url;
+    const name = createStore.getState().createAds.adBuilder.name;
+    const sell = createStore.getState().createAds.adBuilder.sell;
+    const tag = createStore.getState().createAds.adBuilder.tag;
+    const price = createStore.getState().createAds.adBuilder.price;
+    const description = createStore.getState().createAds.adBuilder.description;
+    const url = createStore.getState().createAds.adBuilder.url;
 
     return (
       <div className='create-add'>

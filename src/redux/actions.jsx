@@ -1,10 +1,14 @@
+import * as TYPES from './types';
+
 export const saveUser = (user) => {
-  return {
-    type: 'SAVE_USER',
+  const actionUser = {
+    type: TYPES.SAVE_USER,
     payload: {
       user,
     },
   };
+  console.log(actionUser);
+  return actionUser;
 };
 
 export const localStorageUSer = {
